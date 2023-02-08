@@ -11,7 +11,7 @@ builder.Services.AddSignalR();
 var app = builder.Build();
 app.UseCors(policyBuilder =>
 {
-    policyBuilder.AllowAnyOrigin().AllowAnyHeader().WithMethods("GET", "POST").AllowCredentials();
+    policyBuilder.WithOrigins("http://localhost:3000").AllowAnyHeader().WithMethods("GET", "POST").AllowCredentials();
 });
 app.UseHttpsRedirection();
 app.UseStaticFiles();
