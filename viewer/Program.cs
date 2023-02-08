@@ -9,6 +9,10 @@ builder.Services.AddControllers();
 builder.Services.AddSignalR();
 
 var app = builder.Build();
+app.UseCors(policyBuilder =>
+{
+    policyBuilder.AllowAnyOrigin().AllowAnyHeader().WithMethods("GET", "POST").AllowCredentials();
+});
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
@@ -18,9 +22,8 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapHub<GridEventsHub>("/hubs/gridevents");
     endpoints.MapControllerRoute(
-            name: "default",
-            pattern: "{controller=Home}/{action=Index}/{id?}");
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
 });
 
 app.Run();
-
